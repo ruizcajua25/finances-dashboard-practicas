@@ -1,6 +1,7 @@
 import Dashboard from "./components/dashboard";
 import DashboardAside from "./components/dashboard-aside";
 import InsertBill from "./components/insert-bill";
+import "./globals.css";
 
 export default function Home() {
   return (
