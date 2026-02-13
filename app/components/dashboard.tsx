@@ -15,8 +15,6 @@ export default function Dashboard() {
 
   const billsByMonth = getBillsByMonth();
 
-  console.log(billsByMonth)
-
   function getBillsByMonth() {
     const billsByMonth: Record<string, number> = {};
 
