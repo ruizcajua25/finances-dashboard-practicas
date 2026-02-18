@@ -5,9 +5,12 @@ import "../globals.css"
 export default function Login() {
   function handleLogin (event: any) {
     event.preventDefault();
+
     const form = new FormData(event.currentTarget);
+    
     const name = form.get('name')
     const password = form.get('password')
+
     fetch('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify({username: name, password: password})

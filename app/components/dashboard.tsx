@@ -73,9 +73,9 @@ export default function Dashboard() {
                 className="font-bold text-lg"
                 />
                 <Bar dataKey="spent" fill="var(--color-tertiary)" radius={7} />
-                <Tooltip 
+                {/* <Tooltip 
                   wrapperStyle={{backgroundColor: '#f00'}}
-                />
+                /> */}
               </BarChart>
             </ChartContainer>
         }
@@ -102,6 +102,11 @@ export default function Dashboard() {
                     type="text" 
                     defaultValue={bill.name}
                     onBlur={(e) => handleUpdate(bill.id, { name: String(e.target.value) })}
+                  />
+                  <input 
+                    type="date" 
+                    defaultValue={bill.dueDate.toISOString().split('T')[0]}
+                    onChange={(e) => handleUpdate(bill.id, { dueDate: new Date(e.target.value) })}
                   />
                 </div>
                 <button className="size-10 hover:bg-amber-500 transition rounded-full" onClick={() => removeBill(bill.id)}><TrashIcon></TrashIcon></button>
