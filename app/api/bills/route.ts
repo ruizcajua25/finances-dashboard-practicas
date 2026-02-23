@@ -41,11 +41,11 @@ export async function POST (request: Request) {
   if(!token) return new Response('Need token', {status: 500})
 
   jwt.verify(token, process.env.DB_SECRET!)
-  const { payload: { username } } = jwt.decode(token!, {complete: true})! as JwtPayload
+  const { payload } = jwt.decode(token!, {complete: true})! as JwtPayload
   
   await db.collection("bills").insertOne({
     ...bill,
-    username: username
+    username: payload.username
   })
 
   return new Response(null, {status: 200}) 

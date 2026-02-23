@@ -16,3 +16,16 @@ export function encryptPassword(password: string) {
   // guardamos el salt y el hash juntos para poder verificar la contraseña en el login
   return `${salt}:${hash}`;
 }
+
+export function fetchApi (url : string, options?: object) {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL
+  console.log(`${apiUrl+url}`)
+  return fetch(`${apiUrl}${url}`, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json', // ¡Esto es vital!
+      ...options?.headers // Mantiene los headers extra si pasas alguno
+    }
+  });
+}
+

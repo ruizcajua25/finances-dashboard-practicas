@@ -100,6 +100,7 @@ export default function Dashboard() {
                   </span>
                   <input 
                     type="text" 
+                    aria-label={`bill name ${bill.name}`}
                     defaultValue={bill.name}
                     onBlur={(e) => handleUpdate(bill.id, { name: String(e.target.value) })}
                   />

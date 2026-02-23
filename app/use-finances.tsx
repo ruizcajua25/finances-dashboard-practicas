@@ -2,6 +2,7 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { Bill } from "./types";
 import { usePathname } from "next/navigation";
+import { fetchApi } from "@/lib/utils";
 
 const FinancesContext = createContext<{
   bills: Bill[];
@@ -21,7 +22,7 @@ export default function FinancesProvider({ children }: { children: ReactNode }) 
   const pathname = usePathname()
 
   useEffect(() => {    
-    fetch('/api/bills')
+    fetchApi('/api/bills')
     .then(res => res.json())
     .then(result => setBills(result.map((bill: Bill) => (
         {
@@ -37,7 +38,7 @@ export default function FinancesProvider({ children }: { children: ReactNode }) 
 
   const addBill = (bill: Bill) => {
     setBills((prevBills) => [...prevBills, bill]);
-    fetch('/api/bills', {
+    fetchApi('/api/bills', {
       method: 'POST',
       body: JSON.stringify({bill})
     })
@@ -45,15 +46,15 @@ export default function FinancesProvider({ children }: { children: ReactNode }) 
 
   const removeBill = (id: number) => {
     setBills((prevBills) => prevBills.filter((bill) => bill.id !== id));
-    fetch('/api/bills', {
+    fetchApi('/api/bills', {
       method: 'DELETE',
       body: JSON.stringify({id})
-    })
+    }).catch((error) => console.error(error))
   };
 
   const updateBill = (newBill: Bill, id: number) => {
     setBills((prevBills) => prevBills.map((bill) => bill.id === id ? newBill : bill ))
-    fetch('/api/bills', {
+    fetchApi('/api/bills', {
       method: 'PUT',
       body: JSON.stringify({
         id,
